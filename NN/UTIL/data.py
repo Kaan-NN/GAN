@@ -18,6 +18,8 @@ def prepareTrainingData(rawFile, pathToProcessedData = None):
         preProcessedFile = Path(pathToProcessedData).joinpath(Path(rawFile.stem).with_suffix(".npy"))
         print(preProcessedFile)
         tensor = np.array(rawImage)
+        tensor = np.moveaxis(tensor, 2, 0)
+        print(tensor.shape)
         np.save(preProcessedFile, tensor)
 
 def randomDropoutMatrix(dropoutRate, matrixShape):

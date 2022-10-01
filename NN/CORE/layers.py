@@ -98,14 +98,13 @@ class pooling(layer):
         self.inputShape = self.input.shape
         self.mode = avgPooling
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            pooledImages = [executor.submit(self.mode, image.transpose(2, 0, 1), self.poolFactor, self.stride) for image in self.input]
+            pooledImages = [executor.submit(self.mode, image, self.poolFactor, self.stride) for image in self.input]
         
         for image in pooledImages:
             image = image.result()
         
 
         pooledImages = array(pooledImages)
-        print(pooledImages)
 
         return pooledImages
 
