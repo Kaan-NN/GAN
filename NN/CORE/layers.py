@@ -97,7 +97,7 @@ class pooling(layer):
     def forwardPropagation(self):
         self.inputShape = self.input.shape
         self.mode = avgPooling
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with concurrent.futures.ProcessPoolExecutor() as executor:
             pooledImages = [executor.submit(self.mode, image, self.poolFactor, self.stride) for image in self.input]
         
         for image in pooledImages:
