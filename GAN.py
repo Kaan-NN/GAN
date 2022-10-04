@@ -3,7 +3,7 @@ from NN.CORE.layers import activation, avgPool, fullyConnected, maxPool, pooling
 from NN.CORE.networks import network
 from NN.UTIL.data import preprocess
 from NN.UTIL.profiling import profile
-from NN.UTIL.activation import tanh, tanhDerivative
+from NN.UTIL.activation import sigmoid, sigmoidDerivative, tanh, tanhDerivative
 from NN.UTIL.loss import mse, mseDerivative
 import numpy as np
 import os
@@ -24,13 +24,13 @@ def main():
     dataLabel = np.array([[[0]], [[1]], [[1]], [[0]]])
 
     GAN.addLayer(fullyConnected(2, 3))
-    GAN.addLayer(activation(tanh, tanhDerivative))
+    GAN.addLayer(activation(sigmoid, sigmoidDerivative))
     GAN.addLayer(fullyConnected(3, 1))
-    GAN.addLayer(activation(tanh, tanhDerivative))
+    GAN.addLayer(activation(sigmoid, sigmoidDerivative))
 
     GAN.useLoss(mse, mseDerivative)
 
-    GAN.train(trainingData, dataLabel, 5000, .1)
+    GAN.train(trainingData, dataLabel, 20000, .1)
 
     print(GAN.predict(trainingData))
     #i = 0
