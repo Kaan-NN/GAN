@@ -43,7 +43,8 @@ class network:
                     error = layer.backwardPropagation(error, learningrate)
 
             errorDisplay /= samples
-            print(f"training cycle {i} / {epochs}   error={errorDisplay}")
+            #print(f"training cycle {i} / {epochs}   error={errorDisplay}")
+        print(f"training cycle done: {epochs}   average error={errorDisplay}")
 
     def predict(self, inputData):
         result = []

@@ -24,13 +24,13 @@ def main():
     dataLabel = np.array([[[0]], [[1]], [[1]], [[0]]])
 
     GAN.addLayer(fullyConnected(2, 3))
-    GAN.addLayer(activation(sigmoid, sigmoidDerivative))
+    GAN.addLayer(activation(tanh, tanhDerivative))
     GAN.addLayer(fullyConnected(3, 1))
-    GAN.addLayer(activation(sigmoid, sigmoidDerivative))
+    GAN.addLayer(activation(tanh, tanhDerivative))
 
     GAN.useLoss(mse, mseDerivative)
 
-    GAN.train(trainingData, dataLabel, 20000, .1)
+    GAN.train(trainingData, dataLabel, 100000, .1)
 
     print(GAN.predict(trainingData))
     #i = 0

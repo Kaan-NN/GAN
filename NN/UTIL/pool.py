@@ -1,3 +1,4 @@
+from functools import lru_cache
 ###TODO: make account for stride in PoolOperation
 
 import numpy as np
@@ -30,5 +31,9 @@ def PoolOperation(imgSlice, pooledImgShape, poolFactor, stride, mode):
     pooledImgSlice = np.zeros(shape=(pooledImgShape[1], pooledImgShape[2]))
     for i in range(pooledImgShape[1]):
         for j in range(pooledImgShape[2]):
-            pooledImgSlice[i, j] = mode(imgSlice[i*poolFactor:i*poolFactor+poolFactor, j*poolFactor:j*poolFactor+poolFactor])
+            pooledImgSlice[i, j] = cachedPoolOperation(imgSlice[i*poolFactor:i*poolFactor+poolFactor, j*poolFactor:j*poolFactor+poolFactor].tolist(), mode)
     return pooledImgSlice
+
+@lru_cache(maxsize=16)
+def cachedPoolOperation(imgSlice, mode):
+    return np.average(np.array(imgSlice))
